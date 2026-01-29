@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML to Markdown</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background-color: #f5f5f5;
+      height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .controls {
+      margin-bottom: 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+    .button-group {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+    }
+    button {
+      padding: 8px 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+    }
+    label {
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    button:active {
+      background-color: #3e8e41;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .tab {
+      padding: 8px 16px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .tab.active {
+      border-bottom-color: #4CAF50;
+      font-weight: bold;
+    }
+    .content {
+      flex: 1;
+      overflow: auto;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+    }
+    .markdown-content {
+      line-height: 1.6;
+    }
+    .markdown-content h1,
+    .markdown-content h2,
+    .markdown-content h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .markdown-content p {
+      margin-bottom: 10px;
+    }
+    .markdown-content ul,
+    .markdown-content ol {
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+    .markdown-content code {
+      background-color: #f4f4f4;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    }
+    .markdown-content pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin-bottom: 10px;
+    }
+    .markdown-content pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    .markdown-content blockquote {
+      border-left: 4px solid #ddd;
+      padding-left: 15px;
+      margin-left: 0;
+      color: #666;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+    }
+    .image-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .image-item {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+    .image-preview {
+      max-width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .image-info {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+    .image-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .download-btn {
+      padding: 6px 10px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      flex: 1;
+    }
+    .download-btn:hover {
+      background-color: #0b7dda;
+    }
+    .no-images {
+      text-align: center;
+      color: #999;
+      padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <div class="button-group">
+      <button id="convertBtn">转markdown</button>
+      <button id="copyBtn">复制</button>
+    </div>
+    <label style="font-size: 12px; align-self: center; display: flex; align-items: center;">
+      <input type="checkbox" id="includeImages" checked style="margin-right: 5px;">
+      包含图片
+    </label>
+  </div>
+  <div class="tabs">
+    <div class="tab active" data-tab="preview">Markdown预览</div>
+    <div class="tab" data-tab="raw">原始Markdown</div>
+    <div class="tab" data-tab="images">图片列表</div>
+  </div>
+  <div class="content">
+    <div id="previewContent" class="markdown-content">点击"转换HTML"按钮开始转换</div>
+    <div id="rawContent" class="markdown-content" style="display: none;"></div>
+    <div id="imagesContent" style="display: none;">
+      <div class="image-list" id="imageList">
+        <div class="no-images">请先转换HTML内容以查看图片列表</div>
+      </div>
+    </div>
+  </div>
+  <div class="status" id="status">就绪</div>
+
+  <!-- 引入外部库 -->
+  <script src="libs/turndown.js"></script>
+  <script src="libs/marked.min.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+</html>
