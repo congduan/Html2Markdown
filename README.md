@@ -1,3 +1,103 @@
+# Html2Markdown Chrome Extension
+
+A Chrome browser extension that converts web page content to Markdown format.
+
+## Language
+
+<button onclick="switchLanguage('en')" id="btn-en" style="padding: 4px 8px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">English</button>
+<button onclick="switchLanguage('zh')" id="btn-zh" style="padding: 4px 8px; background-color: #ddd; color: #333; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">中文</button>
+
+<script>
+function switchLanguage(lang) {
+  if (lang === 'en') {
+    document.getElementById('content-en').style.display = 'block';
+    document.getElementById('content-zh').style.display = 'none';
+    document.getElementById('btn-en').style.backgroundColor = '#4CAF50';
+    document.getElementById('btn-en').style.color = 'white';
+    document.getElementById('btn-zh').style.backgroundColor = '#ddd';
+    document.getElementById('btn-zh').style.color = '#333';
+  } else {
+    document.getElementById('content-en').style.display = 'none';
+    document.getElementById('content-zh').style.display = 'block';
+    document.getElementById('btn-en').style.backgroundColor = '#ddd';
+    document.getElementById('btn-en').style.color = '#333';
+    document.getElementById('btn-zh').style.backgroundColor = '#4CAF50';
+    document.getElementById('btn-zh').style.color = 'white';
+  }
+}
+</script>
+
+<div id="content-en">
+
+## Features
+
+- 📋 One-click conversion of web content to Markdown
+- 🎨 Preserves original formatting and structure
+- 🖼️ Supports image processing
+- 🔗 Preserves links and references
+- 📄 Supports various common HTML elements
+- 🎯 Simple and easy-to-use sidebar interface
+
+## Installation
+
+### Install from Source (Developer Mode)
+
+1. Clone this repository to your local machine:
+   ```bash
+   git clone git@github.com:congduan/Html2Markdown.git
+   ```
+
+2. Open Chrome browser and go to the extensions management page:
+   - Enter `chrome://extensions/` in the address bar
+   - Enable "Developer mode" in the top right corner
+
+3. Click "Load unpacked" and select the cloned project directory
+
+4. The extension is installed, and you can see the extension icon in the browser toolbar
+
+## Usage
+
+1. Open the web page you want to convert
+2. Click the extension icon in the browser toolbar
+3. The sidebar will display the converted Markdown content
+4. You can directly copy the converted Markdown text
+
+## Project Structure
+
+```
+Html2Markdown/
+├── background.js       # Extension background script
+├── content.js          # Content script for processing web page content
+├── manifest.json       # Extension configuration file
+├── sidebar.html        # Sidebar interface
+├── sidebar.js          # Sidebar logic
+├── icons/              # Extension icons
+├── libs/               # Dependent libraries
+└── README.md           # Project documentation
+```
+
+## Technical Implementation
+
+- Uses Chrome Extension API
+- Native JavaScript implementation of HTML to Markdown conversion
+- Responsive sidebar design
+
+## Contribution
+
+Welcome to submit Issues and Pull Requests to improve this project!
+
+## License
+
+MIT License
+
+## Contact
+
+- GitHub: [congduan](https://github.com/congduan)
+
+</div>
+
+<div id="content-zh" style="display: none;">
+
 # Html2Markdown Chrome 扩展
 
 一个将网页内容转换为 Markdown 格式的 Chrome 浏览器扩展。
@@ -66,3 +166,5 @@ MIT License
 ## 联系方式
 
 - GitHub: [congduan](https://github.com/congduan)
+
+</div>
